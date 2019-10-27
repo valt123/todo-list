@@ -56,17 +56,31 @@ function listing()
 
 //On clicking save button
 $("#save").click(function(){
-  var formattedList = "Tehtävä lista:" + '\n';
+  var formattedList = "Tehtävä lista:" + '\n' + '\n';
 
-  list.forEach(function(item)
+  list.forEach(function(item, index)
   {
-    //Puts list items to a one string to get rid of commas
-    formattedList += "- " + item;
+    var pos = item.indexOf("!");
+    if (pos == -1)
+    {
+      var lineStr = "- ";
+    }
+    else
+    {
+      var lineStr = "";
+      var subHeading = item.slice(1);
+      item = subHeading;
+    }
+    //Puts list items to a string to get rid of commas
+    formattedList += lineStr + item;
+    console.log(formattedList)
   });
 
   //Saves list to a text file
+  /* */
   var blob = new Blob([formattedList], { type: "text/plain;charset=utf-8" });
   saveAs(blob, "todo.txt");
+  /* */
 });
 
 //List drag and drop sorting
@@ -86,6 +100,7 @@ $(".list").sortable({
 //Checks if list is empty
 function isListEmpty()
 {
+  //If list array is empty disable save and empty buttons
   if (list.length > 0)
   {
     $("#save").prop("disabled", false)
