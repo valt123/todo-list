@@ -1,8 +1,11 @@
-$('#input').focus();
+//Once document is loaded focus on the input field
+$( document ).ready(function() {
+    $('#input').focus();
+});
+
 var list = [];
 //On submit click
-$("#submit").click(
-function(){
+$("#submit").click(function(){
   var toAdd = $('#input').val();
   //Only add to list if input not empty
   if (toAdd != "")
@@ -21,9 +24,9 @@ function(){
 
 //Submit if enter is pressed
 $("#input").keyup(function(event){
-    if(event.keyCode == 13){
-      $("#submit").click();
-    }
+  if(event.keyCode == 13){
+    $("#submit").click();
+  }
 });
 
 //Deletes element on double clicking
@@ -38,19 +41,20 @@ $(document).on('dblclick','li', function(){
 function listing()
 {
   _list = []
-  list.forEach(function(item, index) {
-  //Adds <li tags to the list item
+  list.forEach(function(item, index)
+  {
+  //Adds <li> tags to the list item
   _list.push('<li id="' + index + '">' + item + '</li>');
   });
   $('.list').html(_list);
 }
 
 //On clicking save button
-$("#save").click(
-function(){
+$("#save").click(function(){
   var formattedList = "";
 
-  list.forEach(function(item) {
+  list.forEach(function(item)
+  {
     //Puts list items to a one string to get rid of commas
     formattedList += "- " + item;
   });
@@ -59,3 +63,17 @@ function(){
   var blob = new Blob([formattedList], { type: "text/plain;charset=utf-8" });
   saveAs(blob, "todo.txt");
 });
+
+//List drag and drop sorting
+$(".list").sortable({
+  stop: function( event, ui ) {
+    var results = $(this).sortable('toArray');
+    //Because sortable toArray only gives id of the element, had to do some hackeroonies
+    results.forEach(function(item, index)
+    {
+      results[index] = list[item];
+    })
+    list = results;
+    listing();
+  }
+})
