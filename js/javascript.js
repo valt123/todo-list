@@ -1,6 +1,7 @@
 //Once document is loaded focus on the input field
 $(document).ready(function() {
     $('#input').focus();
+    isListEmpty()
 });
 
 var list = [];
@@ -50,6 +51,7 @@ function listing()
   displayList.push('<li id="' + index + '">' + item + '</li>');
   });
   $('.list').html(displayList);
+  isListEmpty();
 }
 
 //On clicking save button
@@ -80,3 +82,18 @@ $(".list").sortable({
     listing();
   }
 })
+
+//Checks if list is empty
+function isListEmpty()
+{
+  if (list.length > 0)
+  {
+    $("#save").prop("disabled", false)
+    $("#empty").prop("disabled", false)
+  }
+  else
+  {
+    $("#save").prop("disabled", true)
+    $("#empty").prop("disabled", true)
+  }
+}
