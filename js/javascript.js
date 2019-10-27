@@ -1,5 +1,5 @@
 //Once document is loaded focus on the input field
-$( document ).ready(function() {
+$(document).ready(function() {
     $('#input').focus();
 });
 
@@ -7,20 +7,23 @@ var list = [];
 //On submit click
 $("#submit").click(function(){
   var toAdd = $('#input').val();
-  //Only add to list if input not empty
-  if (toAdd != "")
-  {
-    list.push(toAdd + '\n');
-  }
 
   //Focus back to input input and clear it after submit
   $('#input').focus();
-  $('#input').focus(function() {
-    $(this).val('');
-  });
 
+  //Only add to list if input not empty
+  if (toAdd != "")
+  {
+    list.push(toAdd + '\n'); //Adds written text to the list
+  }
   listing(); //Update list
 });
+
+$("#empty").click(function(){
+  list = [];
+  listing();
+})
+
 
 //Submit if enter is pressed
 $("#input").keyup(function(event){
@@ -32,26 +35,26 @@ $("#input").keyup(function(event){
 //Deletes element on double clicking
 $(document).on('dblclick','li', function(){
   var id = $(this).attr("id");
-  list.splice(id, 1);
-  $(this).toggleClass('strike').remove();
+  list.splice(id, 1); //Finds item from the list with id
+  $(this).remove();
   listing(); //Update list after removal
 });
 
 //Makes the list that user sees
 function listing()
 {
-  _list = []
+  displayList = [] //List of items with list tags
   list.forEach(function(item, index)
   {
   //Adds <li> tags to the list item
-  _list.push('<li id="' + index + '">' + item + '</li>');
+  displayList.push('<li id="' + index + '">' + item + '</li>');
   });
-  $('.list').html(_list);
+  $('.list').html(displayList);
 }
 
 //On clicking save button
 $("#save").click(function(){
-  var formattedList = "";
+  var formattedList = "Tehtävä lista:" + '\n';
 
   list.forEach(function(item)
   {

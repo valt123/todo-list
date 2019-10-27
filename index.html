@@ -4,19 +4,41 @@
   <meta charset="utf-8">
   <title>Todo-list</title>
   <!-- Styles -->
-
+  <link rel = "stylesheet" type = "text/css" href = "./styles/jquery-ui.css" />
+  <link rel = "stylesheet" type = "text/css" href = "./styles/bootstrap.css" />
+  <link rel = "stylesheet" type = "text/css" href = "./styles/style.css" />
   <!-- /Styles -->
 </head>
 
 <body>
-  <input type="text" id="input" value="" />
-  <input id="submit" type="submit" value="Submit" />
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Tehtävä lista</h2>
+      <br />
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Syötä Tehtävä</h3>
+        <div class="form-group">
+          <input type="text" id="input" value="" class="form-control"/>
+          <br />
+          <input id="submit" type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Lista</h3>
+      <ul class="list"></ul>
 
-  <ul class="list">
-  </ul>
-
-  <input id="save" type="button" value="Save" />
-
+      <input id="save" type="button" value="Tallenna" class="btn btn-success" />
+      <input id="empty" type="button" value="Tyhjennä" class="btn btn-danger" />
+    </div>
+  </div>
 
 
 <!-- Scripts -->
@@ -24,6 +46,7 @@
   <script src="./js/jquery-3.4.1.min.js"></script>
   <script src="./js/jquery-ui.js"></script>
   <script src="./js/FileSaver.js"></script>
+  <script src="./js/bootstrap.js"></script>
   <!-- My scripts -->
   <script src="./js/javascript.js"></script>
 <!-- /Scripts -->
