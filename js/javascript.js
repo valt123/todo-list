@@ -47,8 +47,18 @@ function listing()
   displayList = [] //List of items with list tags
   list.forEach(function(item, index)
   {
-  //Adds <li> tags to the list item
-  displayList.push('<li id="' + index + '">' + item + '</li>');
+    var pos = item.indexOf("!");
+    if (pos == 0)
+    {
+      var subHeading = item.slice(1);
+      item = subHeading;
+      displayList.push('<li id="' + index + '">' + '<h4>' + item + '</h4>' + '</li>');
+    }
+    else
+    {
+      //Adds <li> tags to the list item
+      displayList.push('<li id="' + index + '">' + item + '</li>');
+    }
   });
   $('.list').html(displayList);
   isListEmpty();
@@ -61,15 +71,15 @@ $("#save").click(function(){
   list.forEach(function(item, index)
   {
     var pos = item.indexOf("!");
-    if (pos == -1)
-    {
-      var lineStr = "- ";
-    }
-    else
+    if (pos == 0)
     {
       var lineStr = "";
       var subHeading = item.slice(1);
       item = subHeading;
+    }
+    else
+    {
+      var lineStr = "- ";
     }
     //Puts list items to a string to get rid of commas
     formattedList += lineStr + item;
